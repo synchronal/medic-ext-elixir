@@ -3,6 +3,60 @@
 An extension pack for using [medic](https://github.com/synchronal/medic-rs)
 with Elixir projects.
 
+```toml
+[doctor]
+
+checks = [
+  { check = "homebrew" },
+  { check = "asdf", command = "plugin-installed", args = { plugin = "erlang" } },
+  { check = "asdf", command = "plugin-installed", args = { plugin = "elixir" } },
+  { check = "asdf", command = "package-installed", args = { plugin = "erlang" } },
+  { check = "asdf", command = "package-installed", args = { plugin = "elixir" } },
+  { check = "hex", command = "local-hex" },
+  { check = "hex", command = "local-rebar" },
+  { check = "hex", command = "packages-installed" },
+]
+
+[test]
+
+checks = [
+  { name = "Check for warnings", shell = "mix compile --force --warnings-as-errors" },
+  { name = "Elixir tests", shell = "mix test --color --warnings-as-errors", verbose = true },
+]
+
+[audit]
+
+checks = [
+  { step = "elixir", command = "credo" },
+  { step = "elixir", command = "dialyzer" },
+  { step = "elixir", command = "audit-deps" },
+  { check = "elixir", command = "unused-deps" },
+]
+
+[update]
+
+steps = [
+  { step = "git", command = "pull" },
+  { step = "elixir", command = "get-deps" },
+  { step = "elixir", command = "compile-deps", args = { mix-env = "dev" } },
+  { step = "elixir", command = "compile-deps", args = { mix-env = "test" } },
+  { doctor = {} },
+  { name = "Migrate", shell = "mix ecto.migrate" },
+  { name = "Build docs", shell = "mix docs" },
+]
+
+[shipit]
+
+steps = [
+  { name = "Check formatting", shell = "mix format --check-formatted" },
+  { audit = {} },
+  { update = {} },
+  { test = {} },
+  { step = "git", command = "push" },
+  { step = "github", command = "link-to-actions", verbose = true },
+]
+```
+
 
 ## medic-check-elixir
 
