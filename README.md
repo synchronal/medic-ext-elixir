@@ -3,6 +3,24 @@
 An extension pack for using [medic](https://github.com/synchronal/medic-rs)
 with Elixir projects.
 
+## Installation
+
+```shell
+brew tap synchronal/tap
+brew install medic-ext-elixir
+```
+
+Example `Brewfile``:
+
+```shell
+tap 'synchronal/tap'
+
+brew  'synchronal/tap/medic'
+brew  'synchronal/tap/medic-ext-elixir'
+```
+
+## Usage
+
 ```toml
 [doctor]
 
