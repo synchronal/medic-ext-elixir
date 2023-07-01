@@ -10,7 +10,7 @@ brew tap synchronal/tap
 brew install medic-ext-elixir
 ```
 
-Example `Brewfile``:
+Example `Brewfile`:
 
 ```shell
 tap 'synchronal/tap'
