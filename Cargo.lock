@@ -156,9 +156,9 @@ dependencies = [
 
 [[package]]
 name = "medic-lib"
-version = "0.1.0"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "88fb0d0b04f43a0d7a05004fc557c553703f501951fe2eb14899e7c93c42110d"
+checksum = "abf0df3609e855c758f3b239ddc5bd9e3d77915253ac6b25fc0e6938f1bc4469"
 dependencies = [
  "serde",
  "serde_json",

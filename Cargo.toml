@@ -1,13 +1,24 @@
 [workspace]
-
 members = [
     "medic-check-elixir",
     "medic-step-elixir",
 ]
-resolver = "1"
+resolver = "2"
+
 
 [workspace.dependencies]
-clap = { version = "4.1.8" }
+clap = { version = "4.1", features = ["derive", "cargo", "wrap_help", "env", "unicode" ] }
 clap_complete = "4.1.4"
 indoc = "2.0.1"
-medic-lib = "0.1"
+medic-lib = "0.2"
+
+
+[workspace.package]
+authors = ["Eric Saxby <sax@livinginthepast.org>", "synchonal.dev"]
+description = "Development workflow automation/suggestion for Elixir projects"
+edition = "2021"
+homepage = "https://github.com/synchronal"
+license = "MIT"
+readme = "./README.md"
+repository = "https://github.com/synchronal/medic-ext-elixir"
+version = "0.1.0"
