@@ -19,7 +19,7 @@ echo
 cargo build --target x86_64-apple-darwin --workspace -r
 
 
-medic_elixir=(medic-check-elixir medic-step-elixir)
+medic_elixir=(medic-check-elixir medic-outdated-elixir medic-step-elixir)
 
 cmds=(${medic_elixir[@]})
 
