@@ -23,7 +23,6 @@ brew  'synchronal/tap/medic-ext-elixir'
 
 ```toml
 [doctor]
-
 checks = [
   { check = "homebrew" },
   { check = "asdf", command = "plugin-installed", args = { plugin = "erlang" } },
@@ -36,14 +35,12 @@ checks = [
 ]
 
 [test]
-
 checks = [
   { name = "Check for warnings", shell = "mix compile --force --warnings-as-errors" },
   { name = "Elixir tests", shell = "mix test --color --warnings-as-errors", verbose = true },
 ]
 
 [audit]
-
 checks = [
   { step = "elixir", command = "credo" },
   { step = "elixir", command = "dialyzer" },
@@ -51,8 +48,12 @@ checks = [
   { check = "elixir", command = "unused-deps" },
 ]
 
-[update]
+[outdated]
+checks = [
+  { check = "elixir" },
+]
 
+[update]
 steps = [
   { step = "git", command = "pull" },
   { step = "elixir", command = "get-deps" },
@@ -64,7 +65,6 @@ steps = [
 ]
 
 [shipit]
-
 steps = [
   { name = "Check formatting", shell = "mix format --check-formatted" },
   { audit = {} },
@@ -131,6 +131,11 @@ or implicitly listed in `mix.exs`?
 medic-check-elixir unused-deps
 medic-check-elixir unused-deps --cd path/to/project
 ```
+
+
+## medic-outdated-elixir
+
+Check for outdated and updatable hex dependencies.
 
 
 ## medic-step-elixir

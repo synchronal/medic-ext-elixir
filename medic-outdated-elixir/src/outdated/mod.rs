@@ -28,17 +28,16 @@ impl OutdatedInfo {
     pub fn from_str(string: String) -> Result<Self, Box<dyn std::error::Error>> {
         let mut deps = vec![];
         let dep_re =
-            Regex::new(r"(?<name>[^\s]+)\s+(?<current>\d+\.\d+\.\d+[^\s]*)\s+(?<latest>[^\s]+)\s+(?<status>.+)")
+            Regex::new(r"(?<name>[^\s]+)\s+(?<current>\d+\.\d+\.\d+[^\s]*)\s+(?<latest>[^\s]+)\s+(?<status>Update possible)")
                 .unwrap();
 
         for line in string.lines() {
             if let Some(captures) = dep_re.captures(line) {
-                deps.push(Dependency::new(
-                    captures.name("name").unwrap().into(),
-                    captures.name("current").unwrap().into(),
-                    captures.name("latest").unwrap().into(),
-                    captures.name("status").unwrap().into(),
-                ));
+                let current = captures.name("current").unwrap().into();
+                let latest = captures.name("latest").unwrap().into();
+                let name = captures.name("name").unwrap().into();
+                let status = captures.name("status").unwrap().into();
+                deps.push(Dependency::new(name, current, latest, status));
             }
         }
 
