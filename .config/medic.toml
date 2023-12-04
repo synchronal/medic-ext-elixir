@@ -25,6 +25,7 @@ checks = [
 [outdated]
 checks = [
   {check = "rust", cd = "medic-check-elixir"},
+  {check = "rust", cd = "medic-outdated-elixir"},
   {check = "rust", cd = "medic-step-elixir"},
 ]
 
