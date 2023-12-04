@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 0.2.0
+
+- Adds `medic-outdated-elixir`.
+
 ## 0.1.0
 
 - Moved out of `medic-rs` to separate project.
