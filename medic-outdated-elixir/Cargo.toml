@@ -1,0 +1,22 @@
+[package]
+name = "medic-outdated-elixir"
+readme = "../README.md"
+authors.workspace = true
+description.workspace = true
+edition.workspace = true
+homepage.workspace = true
+license.workspace = true
+repository.workspace = true
+version.workspace = true
+
+
+[dependencies]
+clap = { workspace = true }
+indoc = { workspace = true }
+medic-lib = { workspace = true }
+regex = { workspace = true }
+
+
+[features]
+default = ["strict"] # Treat warnings as a build error.
+strict = []

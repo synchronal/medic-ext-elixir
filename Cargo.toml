@@ -1,6 +1,7 @@
 [workspace]
 members = [
     "medic-check-elixir",
+    "medic-outdated-elixir",
     "medic-step-elixir",
 ]
 resolver = "2"
@@ -11,6 +12,7 @@ clap = { version = "4.1", features = ["derive", "cargo", "wrap_help", "env", "un
 clap_complete = "4.1.4"
 indoc = "2.0.1"
 medic-lib = "0.2"
+regex = "1.10"
 
 
 [workspace.package]
