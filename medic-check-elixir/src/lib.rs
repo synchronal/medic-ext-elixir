@@ -71,7 +71,7 @@ pub fn archive_installed(archive_name: String) -> CheckResult {
                     "Unable to determine which mix packages are installed.".into(),
                     Some(stdout),
                     Some(stderr),
-                    Some("asdf install elixir".into()),
+                    None,
                 )
             }
         }
@@ -79,14 +79,15 @@ pub fn archive_installed(archive_name: String) -> CheckResult {
             "Unable to determine which mix archives are installed.".into(),
             None,
             None,
-            Some("asdf install elixir".into()),
+            None,
         ),
     }
 }
 
-pub fn check_unused_deps(cd: String) -> CheckResult {
+pub fn check_unused_deps(cd: Option<String>) -> CheckResult {
     mix_installed()?;
-    if let Ok(path) = fs::canonicalize(cd) {
+    let directory = cd.clone().unwrap_or(".".to_string());
+    if let Ok(path) = fs::canonicalize(directory) {
         mix_project_exists(&path)?;
         match Command::new("mix")
             .args(["deps.unlock", "--check-unused"])
@@ -99,11 +100,15 @@ pub fn check_unused_deps(cd: String) -> CheckResult {
                 if output.status.success() {
                     CheckOk
                 } else {
+                    let remedy = match cd {
+                        Some(dir) => format!("(cd {dir} && mix deps.unlock --unused)"),
+                        None => "mix deps.unlock --unused".to_string(),
+                    };
                     CheckError(
                         "Unused dependencies detected.".into(),
                         Some(stdout),
                         Some(stderr),
-                        Some(format!("(cd {path:?} && mix deps.unlock --unused)")),
+                        Some(remedy),
                     )
                 }
             }
@@ -149,7 +154,7 @@ pub fn local_mix_installed() -> CheckResult {
             "Unable to determine which mix archives are installed.".into(),
             None,
             None,
-            Some("asdf install elixir".into()),
+            None,
         ),
     }
 }
@@ -170,9 +175,10 @@ pub fn local_rebar_installed() -> CheckResult {
     }
 }
 
-pub fn packages_compiled(cd: String) -> CheckResult {
+pub fn packages_compiled(cd: Option<String>) -> CheckResult {
     mix_installed()?;
-    if let Ok(path) = fs::canonicalize(&cd) {
+    let directory = cd.clone().unwrap_or(".".to_string());
+    if let Ok(path) = fs::canonicalize(directory) {
         mix_project_exists(&path)?;
         match Command::new("mix")
             .args(["deps"])
@@ -184,11 +190,15 @@ pub fn packages_compiled(cd: String) -> CheckResult {
                 let stderr = std_to_string(output.stderr);
                 if output.status.success() {
                     if stdout.contains("the dependency build is outdated") {
+                        let remedy = match cd {
+                            Some(dir) => format!("(cd {dir} && mix deps.compile)"),
+                            None => "mix deps.compile".to_string(),
+                        };
                         CheckError(
                             "Mix deps are not compiled.".into(),
                             Some(stdout),
                             Some(stderr),
-                            Some(format!("(cd {cd} && mix deps.compile)")),
+                            Some(remedy),
                         )
                     } else {
                         CheckOk
@@ -219,9 +229,10 @@ pub fn packages_compiled(cd: String) -> CheckResult {
     }
 }
 
-pub fn packages_installed(cd: String) -> CheckResult {
+pub fn packages_installed(cd: Option<String>) -> CheckResult {
     mix_installed()?;
-    if let Ok(path) = fs::canonicalize(&cd) {
+    let directory = cd.clone().unwrap_or(".".to_string());
+    if let Ok(path) = fs::canonicalize(directory) {
         mix_project_exists(&path)?;
         match Command::new("mix")
             .args(["deps"])
@@ -235,11 +246,15 @@ pub fn packages_installed(cd: String) -> CheckResult {
                     if stdout.contains("dependency is not available")
                         || stdout.contains("is out of date")
                     {
+                        let remedy = match cd {
+                            Some(dir) => format!("(cd {dir} && mix deps.get)"),
+                            None => "mix deps.get".to_string(),
+                        };
                         CheckError(
                             "Mix deps are out of date.".into(),
                             Some(stdout),
                             Some(stderr),
-                            Some(format!("(cd {cd} && mix deps.get)")),
+                            Some(remedy),
                         )
                     } else {
                         CheckOk
@@ -257,7 +272,7 @@ pub fn packages_installed(cd: String) -> CheckResult {
                 "Unable to determine which mix packages are installed.".into(),
                 None,
                 None,
-                Some("asdf install elixir".into()),
+                None,
             ),
         }
     } else {

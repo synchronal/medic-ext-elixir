@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Remove redundant `cd .` from check remedies.
+
 ## 0.2.0
 
 - Adds `medic-outdated-elixir`.

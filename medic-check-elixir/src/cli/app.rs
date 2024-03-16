@@ -40,16 +40,16 @@ pub struct ArchiveArgs {
 pub struct MixArgs {
     /// Path to a mix project
     #[clap(value_parser)]
-    #[arg(short, long, default_value = ".", value_hint = clap::ValueHint::DirPath)]
-    pub cd: String,
+    #[arg(short, long, value_hint = clap::ValueHint::DirPath)]
+    pub cd: Option<String>,
 }
 
 #[derive(Args, Debug)]
 pub struct PackageArgs {
     /// Path to a mix project
     #[clap(value_parser)]
-    #[arg(short, long, default_value = ".", value_hint = clap::ValueHint::DirPath)]
-    pub cd: String,
+    #[arg(short, long, value_hint = clap::ValueHint::DirPath)]
+    pub cd: Option<String>,
 }
 
 impl Default for CliArgs {
