@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.2.1
+
 - Remove redundant `cd .` from check remedies.
 
 ## 0.2.0
