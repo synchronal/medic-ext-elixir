@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.2.2
+
 - Fix compilation warnings from newer Rust updates.
 
 ## 0.2.1
