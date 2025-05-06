@@ -95,7 +95,7 @@ pub fn compile_deps(args: MixArgs) -> StepResult {
         Err(err) => StepError(
             "Unable to check for uncompiled deps.".into(),
             None,
-            Some(format!("{}", err)),
+            Some(format!("{err}")),
         ),
     }
 }

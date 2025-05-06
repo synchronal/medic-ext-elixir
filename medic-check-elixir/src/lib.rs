@@ -55,7 +55,7 @@ pub fn archive_installed(archive_name: String) -> CheckResult {
             let stdout = std_to_string(output.stdout);
             let stderr = std_to_string(output.stderr);
             if output.status.success() {
-                let archive_substr = format!("* {}-", archive_name);
+                let archive_substr = format!("* {archive_name}-");
                 if stdout.contains(&archive_substr) {
                     CheckOk
                 } else {

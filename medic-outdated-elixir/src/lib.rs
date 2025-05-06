@@ -5,7 +5,7 @@ mod outdated;
 
 use cli::CliArgs;
 use medic_lib::std_to_string;
-use outdated::OutdatedInfo;
+pub use outdated::{Dependency, OutdatedInfo};
 use regex::Regex;
 use std::error::Error;
 use std::io::{BufRead, BufReader};
@@ -19,7 +19,7 @@ pub fn check_outdated(_args: CliArgs) -> Result<(), Box<dyn Error>> {
     match command.output() {
         Ok(output) => {
             let stdout = std_to_string(output.stdout);
-            let outdated: OutdatedInfo = OutdatedInfo::from_str(stdout)?;
+            let outdated: OutdatedInfo = OutdatedInfo::from_hex_outdated(stdout)?;
             for d in &outdated.dependencies {
                 println!(
                     "::outdated::name={}::version={}::latest={}",
@@ -98,9 +98,9 @@ pub fn local_hex_installed() -> Result<bool, Box<dyn Error>> {
                 }
             } else {
                 let stderr = std_to_string(output.stderr);
-                Err(format!("Unable to check for mix local.hex: {}", stderr).into())
+                Err(format!("Unable to check for mix local.hex: {stderr}").into())
             }
         }
-        Err(err) => Err(format!("Unable to check for mix local.hex: {}", err).into()),
+        Err(err) => Err(format!("Unable to check for mix local.hex: {err}").into()),
     }
 }

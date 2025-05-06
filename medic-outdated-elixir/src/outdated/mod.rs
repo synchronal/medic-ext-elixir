@@ -25,7 +25,7 @@ pub struct OutdatedInfo {
 }
 
 impl OutdatedInfo {
-    pub fn from_str(string: String) -> Result<Self, Box<dyn std::error::Error>> {
+    pub fn from_hex_outdated(string: String) -> Result<Self, Box<dyn std::error::Error>> {
         let mut deps = vec![];
         let dep_re =
             Regex::new(r"(?<name>[^\s]+)\s+(?<current>\d+\.\d+\.\d+[^\s]*)\s+(?<latest>[^\s]+)\s+(?<status>Update possible)")

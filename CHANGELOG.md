@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Fix compilation warnings from newer Rust updates.
+
 ## 0.2.1
 
 - Remove redundant `cd .` from check remedies.
