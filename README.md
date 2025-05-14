@@ -25,10 +25,10 @@ brew  'synchronal/tap/medic-ext-elixir'
 [doctor]
 checks = [
   { check = "homebrew" },
-  { check = "asdf", command = "plugin-installed", args = { plugin = "erlang" } },
-  { check = "asdf", command = "plugin-installed", args = { plugin = "elixir" } },
-  { check = "asdf", command = "package-installed", args = { plugin = "erlang" } },
-  { check = "asdf", command = "package-installed", args = { plugin = "elixir" } },
+  { check = "tool-versions", command = "plugin-installed", args = { plugin = "erlang" } },
+  { check = "tool-versions", command = "plugin-installed", args = { plugin = "elixir" } },
+  { check = "tool-versions", command = "package-installed", args = { plugin = "erlang" } },
+  { check = "tool-versions", command = "package-installed", args = { plugin = "elixir" } },
   { check = "hex", command = "local-hex" },
   { check = "hex", command = "local-rebar" },
   { check = "hex", command = "packages-installed" },
