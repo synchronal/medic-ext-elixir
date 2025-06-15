@@ -164,7 +164,7 @@ checksum = "cd945864f07fe9f5371a27ad7b52a172b4b499999f1d97574c9fa68373937e12"
 
 [[package]]
 name = "medic-check-elixir"
-version = "0.2.2"
+version = "1.0.0"
 dependencies = [
  "clap",
  "indoc",
@@ -183,7 +183,7 @@ dependencies = [
 
 [[package]]
 name = "medic-outdated-elixir"
-version = "0.2.2"
+version = "1.0.0"
 dependencies = [
  "clap",
  "indoc",
@@ -193,7 +193,7 @@ dependencies = [
 
 [[package]]
 name = "medic-step-elixir"
-version = "0.2.2"
+version = "1.0.0"
 dependencies = [
  "clap",
  "indoc",
