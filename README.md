@@ -1,18 +1,18 @@
 # Medic Elixir
 
-An extension pack for using [medic](https://github.com/synchronal/medic-rs)
-with Elixir projects.
+An extension pack for using
+[medic](https://github.com/synchronal/medic-rs) with Elixir projects.
 
 ## Installation
 
-```shell
+``` shell
 brew tap synchronal/tap
 brew install medic-ext-elixir
 ```
 
 Example `Brewfile`:
 
-```shell
+``` shell
 tap 'synchronal/tap'
 
 brew  'synchronal/tap/medic'
@@ -21,7 +21,7 @@ brew  'synchronal/tap/medic-ext-elixir'
 
 ## Usage
 
-```toml
+``` toml
 [doctor]
 checks = [
   { check = "homebrew" },
@@ -75,7 +75,6 @@ steps = [
 ]
 ```
 
-
 ## medic-check-elixir
 
 Checks for whether an Elixir project is configured.
@@ -84,7 +83,7 @@ Checks for whether an Elixir project is configured.
 
 Is the given package installed as a mix archive?
 
-```shell
+``` shell
 medic-check-elixir archive-installed --name <name>
 ```
 
@@ -92,7 +91,7 @@ medic-check-elixir archive-installed --name <name>
 
 Is hex installed locally?
 
-```shell
+``` shell
 medic-check-elixir local-hex
 ```
 
@@ -100,7 +99,7 @@ medic-check-elixir local-hex
 
 Is rebar installed locally?
 
-```shell
+``` shell
 medic-check-elixir local-rebar
 ```
 
@@ -108,7 +107,7 @@ medic-check-elixir local-rebar
 
 Are all mix deps compiled for a project?
 
-```shell
+``` shell
 medic-check-elixir packages-compiled
 medic-check-elixir packages-compiled --cd path/to/project
 ```
@@ -117,26 +116,24 @@ medic-check-elixir packages-compiled --cd path/to/project
 
 Are all mix deps installed for a project?
 
-```shell
+``` shell
 medic-check-elixir packages-installed
 medic-check-elixir packages-installed --cd path/to/project
 ```
 
 ### unused deps?
 
-Are there any hex deps listed in `mix.lock` that are not explicitly
-or implicitly listed in `mix.exs`?
+Are there any hex deps listed in `mix.lock` that are not explicitly or
+implicitly listed in `mix.exs`?
 
-```shell
+``` shell
 medic-check-elixir unused-deps
 medic-check-elixir unused-deps --cd path/to/project
 ```
 
-
 ## medic-outdated-elixir
 
 Check for outdated and updatable hex dependencies.
-
 
 ## medic-step-elixir
 
@@ -144,10 +141,10 @@ Steps for updating an Elixir project or for shipping changes to one.
 
 ### audit-deps
 
-Runs `mix deps.audit`, assuming that the `mix_audit` package has been added
-to a project.
+Runs `mix deps.audit`, assuming that the `mix_audit` package has been
+added to a project.
 
-```shell
+``` shell
 medic-step-elixir audit-deps
 medic-step-elixir audit-deps --cd path/to/project
 ```
@@ -157,7 +154,7 @@ medic-step-elixir audit-deps --cd path/to/project
 Compiles any dependencies that are not yet compiled. Deps for which mix
 returns output indicating that the dep is compiled will be skipped.
 
-```shell
+``` shell
 medic-step-elixir compile-deps
 medic-step-elixir compile-deps --cd path/to/project
 medic-step-elixir compile-deps --mix-env test
@@ -167,7 +164,7 @@ medic-step-elixir compile-deps --mix-env test
 
 Runs `mix credo --strict`.
 
-```shell
+``` shell
 medic-step-elixir credo
 medic-step-elixir credo --cd path/to/project
 ```
@@ -176,17 +173,18 @@ medic-step-elixir credo --cd path/to/project
 
 Runs `mix dialyzer`, assuming that the `dialyxir` package has been added
 
-```shell
+``` shell
 medic-step-elixir dialyzer
 medic-step-elixir dialyzer --cd path/to/project
 ```
+
 o a project.
 
 ### get-deps
 
 Downloads any missing dependencies.
 
-```shell
+``` shell
 medic-step-elixir get-deps
 medic-step-elixir get-deps --cd path/to/project
 ```
