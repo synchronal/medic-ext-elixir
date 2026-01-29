@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Use edition 2024.
+
 ## v1.0.0
 
 - No breaking changes have been introduced, but this project is being

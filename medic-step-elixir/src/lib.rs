@@ -4,8 +4,8 @@ pub mod cli;
 pub mod deps;
 
 use cli::app::MixArgs;
-use medic_lib::std_to_string;
 use medic_lib::StepResult::{self, StepError, StepOk};
+use medic_lib::std_to_string;
 use std::fs;
 use std::process::{Command, Stdio};
 
