@@ -57,14 +57,14 @@ pub fn install_local_hex() -> Result<(), Box<dyn Error>> {
         reader
             .lines()
             .map_while(Result::ok)
-            .for_each(|line| eprintln!("::info::mix-local-hex-install::{}", &line));
+            .for_each(|line| eprintln!("::info::mix-local-hex-install::{line}"));
     });
     let err_thr = thread::spawn(move || {
         let reader = BufReader::new(stderr);
         reader
             .lines()
             .map_while(Result::ok)
-            .for_each(|line| eprintln!("::info::mix-local-hex-install::{}", &line));
+            .for_each(|line| eprintln!("::info::mix-local-hex-install::{line}"));
     });
 
     let output = child.wait_with_output();
