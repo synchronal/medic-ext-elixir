@@ -9,7 +9,6 @@ on:
 concurrency: pkg
 
 env:
-  FREEBSD_VERSION: "14.3"
   CARGO_TERM_COLOR: always
 
 jobs:
@@ -28,8 +27,54 @@ jobs:
           envs: 'GITHUB_RUN_NUMBER GITHUB_SHA CARGO_TERM_COLOR'
           usesh: true
           prepare: |
+            export ASSUME_ALWAYS_YES=yes
             mkdir -p /usr/local/etc/pkg/repos
             echo 'FreeBSD: { url: "pkg+http://pkg.FreeBSD.org/${ABI}/latest" }' > /usr/local/etc/pkg/repos/FreeBSD.conf
+            pkg bootstrap -f
+            pkg update -f
+
+            pkg install -y \
+              bash \
+              rust-nightly
+
+          run: |
+            pwd
+
+            cargo build --workspace --release
+      - name: Create package
+        run: |
+          ssh freebsd << EOF
+            pwd
+            cd $GITHUB_WORKSPACE
+
+            ./bin/freebsd/package
+          EOF
+
+          scp -r freebsd:$GITHUB_WORKSPACE/medic-ext-*.pkg .
+      - name: Save pkg artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: freebsd-package-${{ env.FREEBSD_VERSION }}
+          path: medic-*.pkg
+  build_freebsd_15:
+    name: Build FreeBSD 15 package
+    runs-on: ubuntu-latest
+    env:
+      FREEBSD_VERSION: "15.9"
+    steps:
+      - uses: actions/checkout@v6
+      - name: Build in FreeBSD
+        id: build
+        uses: vmactions/freebsd-vm@v1
+        with:
+          release: ${{ env.FREEBSD_VERSION }}
+          envs: 'GITHUB_RUN_NUMBER GITHUB_SHA CARGO_TERM_COLOR'
+          usesh: true
+          prepare: |
+            export ASSUME_ALWAYS_YES=yes
+            mkdir -p /usr/local/etc/pkg/repos
+            echo 'FreeBSD: { url: "pkg+http://pkg.FreeBSD.org/${ABI}/latest" }' > /usr/local/etc/pkg/repos/FreeBSD.conf
+            pkg bootstrap -f
             pkg update -f
 
             pkg install -y \
