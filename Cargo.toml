@@ -4,7 +4,7 @@ members = [
     "medic-outdated-elixir",
     "medic-step-elixir",
 ]
-resolver = "2"
+resolver = "3"
 
 
 [workspace.dependencies]
